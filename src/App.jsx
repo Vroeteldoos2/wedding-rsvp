@@ -10,8 +10,8 @@ import MediaUploadPage from "./pages/MediaUploadPage";
 import WeddingAlbumPage from "./pages/WeddingAlbumPage";
 import ViewRSVPPage from "./pages/ViewRSVPPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
-import VenuePage from "./pages/VenuePage"; // ✅ NEW
-
+import ResetRequestPage from "./pages/ResetRequestPage"; // ✅ NEW
+import VenuePage from "./pages/VenuePage";
 import SplashScreen from "./components/SplashScreen";
 import LayoutWithNav from "./components/LayoutWithNav";
 import { ProtectedRoute } from "./components/ProtectedRoute";
@@ -45,6 +45,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
+        <Route path="/request-reset" element={<ResetRequestPage />} /> {/* ✅ New Route */}
 
         {/* Protected Routes with Navbar */}
         <Route
@@ -88,7 +89,7 @@ function App() {
           }
         />
         <Route
-          path="/venue" // ✅ NEW VENUE PAGE
+          path="/venue"
           element={
             <ProtectedRoute>
               <LayoutWithNav>

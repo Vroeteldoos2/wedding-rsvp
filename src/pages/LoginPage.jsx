@@ -114,9 +114,9 @@ useEffect(() => {
           </form>
 
           <div className="text-sm text-center">
-            <Link to="/reset-password" className="text-green-600 hover:underline">
-              Forgot Password?
-            </Link>
+            <Link to="/request-reset" className="text-green-600 hover:underline">
+  Forgot Password?
+</Link>
             <span className="mx-2">|</span>
             <Link to="/signup" className="text-green-600 hover:underline">
               Sign Up
