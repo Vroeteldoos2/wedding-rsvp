@@ -1,7 +1,7 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { supabase } from "../supabaseClient";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Home, UploadCloud, Image, LayoutDashboard, LogOut } from "lucide-react";
 
 export default function NavigationBar() {
   const [user, setUser] = useState(null);
@@ -34,75 +34,88 @@ export default function NavigationBar() {
   };
 
   const isActive = (path) => location.pathname === path;
-
-  const getInitials = (email) => {
-    if (!email) return "";
-    return email.slice(0, 2).toUpperCase();
-  };
+  const getInitials = (email) => email?.slice(0, 2).toUpperCase() || "";
 
   if (!user) return null;
 
   return (
     <nav className="bg-dark_green text-baby_powder shadow-md">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3">
-        {/* Left side: Brand */}
+        {/* Brand */}
         <div className="text-lg sm:text-xl font-bold whitespace-nowrap">
           Josh & Martinique are getting hitched 💍
         </div>
 
-        {/* Right Side */}
-        <div className="flex items-center space-x-4">
-          {/* Desktop Avatar */}
-          <div className="hidden sm:flex items-center justify-center bg-sea_green text-white rounded-full w-8 h-8 text-sm font-bold">
+        {/* Desktop Links */}
+        <div className="hidden sm:flex items-center space-x-6 text-sm sm:text-base">
+          <NavLink to="/rsvp" label="Home" icon={<Home size={18} />} active={isActive("/rsvp")} />
+          <NavLink
+            to="/upload"
+            label="Upload Media"
+            icon={<UploadCloud size={18} />}
+            active={isActive("/upload")}
+          />
+          <NavLink
+            to="/album"
+            label="Wedding Album"
+            icon={<Image size={18} />}
+            active={isActive("/album")}
+          />
+          {isSuperuser && (
+            <NavLink
+              to="/dashboard"
+              label="Dashboard"
+              icon={<LayoutDashboard size={18} />}
+              active={isActive("/dashboard")}
+            />
+          )}
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-2 hover:underline transition"
+          >
+            <LogOut size={18} />
+            Logout
+          </button>
+          <div className="bg-sea_green text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
             {getInitials(user.email)}
           </div>
-
-          {/* Desktop Links */}
-          <div className="hidden sm:flex items-center gap-5 text-sm sm:text-base">
-            <NavLink to="/rsvp" label="Home" active={isActive("/rsvp")} />
-            <NavLink to="/upload" label="Upload Media" active={isActive("/upload")} />
-            <NavLink to="/album" label="Wedding Album" active={isActive("/album")} />
-            {isSuperuser && (
-              <NavLink to="/dashboard" label="Dashboard" active={isActive("/dashboard")} />
-            )}
-            <button onClick={handleLogout} className="hover:underline">
-              Logout
-            </button>
-          </div>
-
-          {/* Mobile Menu Toggle */}
-          <button
-            className="sm:hidden"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Toggle Menu"
-          >
-            {menuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
         </div>
+
+        {/* Mobile Toggle */}
+        <button className="sm:hidden" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle Menu">
+          {menuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
       </div>
 
       {/* Mobile Menu */}
       {menuOpen && (
         <div className="sm:hidden px-4 pb-4">
-          {/* Mobile Avatar */}
-          <div className="flex items-center mb-3">
+          <div className="flex items-center gap-2 mb-3">
             <div className="bg-sea_green text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
               {getInitials(user.email)}
             </div>
-            <span className="ml-2 text-xs text-ash_gray">{user.email}</span>
+            <span className="text-xs text-ash_gray">{user.email}</span>
           </div>
 
           <div className="flex flex-col gap-3 text-sm">
-            <NavLink to="/" label="Home" active={isActive("/")} onClick={() => setMenuOpen(false)} />
+            <NavLink
+              to="/rsvp"
+              label="Home"
+              icon={<Home size={18} />}
+              active={isActive("/rsvp")}
+              onClick={() => setMenuOpen(false)}
+            />
             <NavLink
               to="/upload"
               label="Upload Media"
+              icon={<UploadCloud size={18} />}
               active={isActive("/upload")}
               onClick={() => setMenuOpen(false)}
             />
             <NavLink
               to="/album"
               label="Wedding Album"
+              icon={<Image size={18} />}
               active={isActive("/album")}
               onClick={() => setMenuOpen(false)}
             />
@@ -110,6 +123,7 @@ export default function NavigationBar() {
               <NavLink
                 to="/dashboard"
                 label="Dashboard"
+                icon={<LayoutDashboard size={18} />}
                 active={isActive("/dashboard")}
                 onClick={() => setMenuOpen(false)}
               />
@@ -119,8 +133,9 @@ export default function NavigationBar() {
                 setMenuOpen(false);
                 handleLogout();
               }}
-              className="hover:underline text-left"
+              className="flex items-center gap-2 hover:underline"
             >
+              <LogOut size={18} />
               Logout
             </button>
           </div>
@@ -130,15 +145,16 @@ export default function NavigationBar() {
   );
 }
 
-function NavLink({ to, label, active, onClick }) {
+function NavLink({ to, label, icon, active, onClick }) {
   return (
     <Link
       to={to}
       onClick={onClick}
-      className={`hover:underline font-medium transition ${
+      className={`flex items-center gap-2 font-medium transition hover:underline ${
         active ? "text-sea_green font-semibold underline" : ""
       }`}
     >
+      {icon}
       {label}
     </Link>
   );
