@@ -59,7 +59,7 @@ useEffect(() => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % slideshowImages.length);
-    }, 4000);
+    }, 50000);
     return () => clearInterval(interval);
   }, []);
 
@@ -137,19 +137,19 @@ useEffect(() => {
         {/* Slideshow */}
         <div className="w-full max-w-md mt-6 rounded-xl overflow-hidden shadow-lg border border-ecru">
           <div className="relative aspect-[4/3]">
-            {slideshowImages.map((src, index) => (
-              <img
-                key={index}
-                src={src}
-                alt={`Wedding ${index + 1}`}
-                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
-                  index === currentIndex ? "opacity-100" : "opacity-0"
-                }`}
-              />
-            ))}
-            <div className="absolute bottom-0 w-full bg-black/40 text-white text-center text-sm sm:text-base py-2 px-3 font-medium font-fancy tracking-wide">
-              {loveQuotes[currentIndex]}
-            </div>
+  {slideshowImages.map((src, index) => (
+  <img
+    key={index}
+    src={src}
+    alt={`Wedding ${index + 1}`}
+    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[4000ms] ease-in-out ${
+      index === currentIndex ? "opacity-100" : "opacity-0"
+    }`}
+  />
+))}
+<div className="absolute bottom-0 w-full bg-black/40 text-white text-center text-sm sm:text-base py-2 px-3 font-medium font-fancy tracking-wide">
+  {loveQuotes[currentIndex]}
+</div>
           </div>
         </div>
       </div>

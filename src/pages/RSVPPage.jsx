@@ -174,8 +174,16 @@ export default function RSVPPage() {
           onSubmit={handleSubmit}
           className="bg-white/95 backdrop-blur-sm rounded-2xl p-8 w-full max-w-2xl shadow-xl space-y-6"
         >
-          <h2 className="text-3xl font-bold text-dark_green text-center">Wedding RSVP</h2>
-
+          <h2 className="text-3xl font-bold text-dark_green text-center">RSVP Here ⬇️ </h2>
+           <div className="bg-green-100 border border-green-400 text-green-800 rounded-md p-4 text-sm text-left">
+                <strong>Wedding Details:</strong>
+                <br />
+                📅 <strong>Date:</strong> Saturday, 21 February 2026
+                <br />
+                ⏰ <strong>Time:</strong> 2:00 PM for 3:00 PM SAST
+                <br />
+                💌 Please arrive on time. We’ll be tying the knot at 3 PM sharp!
+              </div>
           <input
             type="text"
             placeholder="Full Name"

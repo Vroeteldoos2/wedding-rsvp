@@ -1,7 +1,16 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { supabase } from "../supabaseClient";
-import { Menu, X, Home, UploadCloud, Image, LayoutDashboard, LogOut } from "lucide-react";
+import {
+  Menu,
+  X,
+  Home,
+  UploadCloud,
+  Image,
+  LayoutDashboard,
+  LogOut,
+  MessageCircleMore,
+} from "lucide-react";
 
 export default function NavigationBar() {
   const [user, setUser] = useState(null);
@@ -39,14 +48,13 @@ export default function NavigationBar() {
   if (!user) return null;
 
   return (
-    <nav className="bg-dark_green text-baby_powder shadow-md">
+    <nav className="bg-dark_green text-baby_powder shadow-md z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3">
-        {/* Brand */}
         <div className="text-lg sm:text-xl font-bold whitespace-nowrap">
           Josh & Martinique are getting hitched 💍
         </div>
 
-        {/* Desktop Links */}
+        {/* Desktop */}
         <div className="hidden sm:flex items-center space-x-6 text-sm sm:text-base">
           <NavLink to="/rsvp" label="Home" icon={<Home size={18} />} active={isActive("/rsvp")} />
           <NavLink
@@ -60,6 +68,12 @@ export default function NavigationBar() {
             label="Wedding Album"
             icon={<Image size={18} />}
             active={isActive("/album")}
+          />
+          <NavLink
+            to="/message-wall"
+            label="Messages"
+            icon={<MessageCircleMore size={18} />}
+            active={isActive("/message-wall")}
           />
           {isSuperuser && (
             <NavLink
@@ -87,7 +101,7 @@ export default function NavigationBar() {
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Dropdown */}
       {menuOpen && (
         <div className="sm:hidden px-4 pb-4">
           <div className="flex items-center gap-2 mb-3">
@@ -117,6 +131,13 @@ export default function NavigationBar() {
               label="Wedding Album"
               icon={<Image size={18} />}
               active={isActive("/album")}
+              onClick={() => setMenuOpen(false)}
+            />
+            <NavLink
+              to="/leave-a-message"
+              label="Messages"
+              icon={<MessageCircleMore size={18} />}
+              active={isActive("/leave-a-message")}
               onClick={() => setMenuOpen(false)}
             />
             {isSuperuser && (
