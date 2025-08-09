@@ -51,7 +51,7 @@ export default function NavigationBar() {
     <nav className="bg-dark_green text-baby_powder shadow-md z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3">
         <div className="text-lg sm:text-xl font-bold whitespace-nowrap">
-          Josh & Martinique are getting hitched 💍
+          We are getting hitched 💍
         </div>
 
         {/* Desktop */}
